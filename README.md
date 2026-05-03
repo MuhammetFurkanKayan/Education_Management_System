@@ -2,18 +2,6 @@
 
 A console-based Java application developed using **4 different Design Patterns** to simulate education management processes. The project covers scenarios such as lecture creation, student notification, evaluation system management, and online lecture decoration.
 
-## Table of Contents
-
-- [Design Patterns Used](#-design-patterns-used)
-  - [Factory Pattern](#1--factory-pattern)
-  - [Observer Pattern](#2--observer-pattern)
-  - [Strategy Pattern](#3--strategy-pattern)
-  - [Decorator Pattern](#4--decorator-pattern)
-- [Project Structure](#-project-structure)
-- [Installation and Running](#-installation-and-running)
-- [Sample Output](#-sample-output)
-- [Technologies](#-technologies)
-
 ---
 
 ## Design Patterns Used
@@ -37,6 +25,10 @@ Since lecture prices vary from city to city, a student could accidentally select
 LectureCenter cent = new IstanbulLectureCenter();
 Lecture lesson2 = cent.selectLecture("math");           // Creates IstanbulMathLecture
 ```
+
+**UML Class Diagram:**
+
+<img width="1181" height="835" alt="factoryYeni drawio" src="https://github.com/user-attachments/assets/bf179abb-175c-40a4-b1af-cb779ade5074" />
 
 ---
 
@@ -69,6 +61,10 @@ lesson1.notifyObservers();
 lesson.setWeeklyClassTopic("Türev");                                               // All observers are notified
 ```
 
+**UML Class Diagram:**
+
+<img width="1792" height="844" alt="observerYeni drawio" src="https://github.com/user-attachments/assets/a4466445-5a8c-4a7e-97d7-f8ce3513fee4" />
+
 ---
 
 ### 3. Strategy Pattern
@@ -93,6 +89,10 @@ lesson2.setEvaluationStrategy(new ExamAndProjectEvaluation());
 lesson2.showEvaluationSystem();                        // Changed: Exam + Project based
 ```
 
+**UML Class Diagram:**
+
+<img width="1331" height="744" alt="strategyYen drawio" src="https://github.com/user-attachments/assets/eca8af7b-15b0-49b5-9d3e-e10b4416da43" />
+
 ---
 
 ### 4. Decorator Pattern
@@ -104,13 +104,13 @@ Allows **dynamically adding online lecture features** to an existing lecture. Ea
 | Class | Role |
 |---|---|
 | `OnlineLectureDecorator` | Abstract decorator class |
-| `OnlineMathLecture` | Online math lecture decorator (+100₺) |
-| `OnlineEnglishLecture` | Online English lecture decorator (+75₺) |
-| `OnlinePhysicsLecture` | Online physics lecture decorator (+50₺) |
+| `OnlineMathLecture` | Online math lecture decorator +100 TL |
+| `OnlineEnglishLecture` | Online English lecture decorator +75 TL |
+| `OnlinePhysicsLecture` | Online physics lecture decorator +50 TL |
 
 **Usage Example:**
 ```java
-Lecture lesson5 = new IstanbulEnglishLecture("2019","verbs");      // Base lecture (200TL)
+Lecture lesson5 = new IstanbulEnglishLecture("2019","verbs");      // Base lecture +250 TL
 lesson5 = new OnlineMathLecture(lesson5,"2017","üslü");            // +100 TL
 lesson5 = new OnlinePhysicsLecture(lesson5,"2018","hareket");      // +50 TL
 		
@@ -118,63 +118,12 @@ System.out.println(lesson5.getClassName());                        // Istanbul E
 System.out.println(lesson5.cost());                                // Total: 400 TL
 ```
 
+**UML Class Diagram:**
+
+<img width="1512" height="744" alt="decoraYeni drawio" src="https://github.com/user-attachments/assets/43afa6b6-d117-49b1-84ae-53807aa376cd" />
+
 ---
 
-## Project Structure
-
-```
-Education_Management_System/
-└── src/
-    └── source/
-        ├── MainClass.java                  # Main entry point
-        │
-        ├── # --- Core Classes ---
-        ├── Lecture.java                    # Abstract lecture class (Subject impl.)
-        ├── Student.java                   # Abstract student class (Observer impl.)
-        ├── EducationalPublisher.java       # Abstract publisher class (Observer impl.)
-        │
-        ├── # --- Observer Pattern ---
-        ├── Subject.java                   # Subject interface
-        ├── Observer.java                  # Observer interface
-        ├── EmailSender.java               # Email sending interface
-        │
-        ├── # --- Strategy Pattern ---
-        ├── EvaluationStrategy.java        # Strategy interface
-        ├── ExamBasedEvaluation.java       # Concrete strategy
-        ├── ProjectBasedEvaluation.java    # Concrete strategy
-        ├── ExamAndProjectEvaluation.java  # Concrete strategy
-        │
-        ├── # --- Factory Pattern ---
-        ├── LectureCenter.java             # Abstract factory
-        ├── IstanbulLectureCenter.java     # Concrete factory (Istanbul)
-        ├── AnkaraLectureCenter.java       # Concrete factory (Ankara)
-        │
-        ├── # --- Lecture Hierarchy ---
-        ├── MathLecture.java               # Abstract math lecture
-        ├── EnglishLecture.java            # Abstract English lecture
-        ├── PhysicsLecture.java            # Abstract physics lecture
-        ├── IstanbulMathLecture.java       # Istanbul math lecture
-        ├── IstanbulEnglishLecture.java    # Istanbul English lecture
-        ├── IstanbulPhysicsLecture.java    # Istanbul physics lecture
-        ├── AnkaraMathLecture.java         # Ankara math lecture
-        ├── AnkaraEnglishLecture.java      # Ankara English lecture
-        ├── AnkaraPhysicsLecture.java      # Ankara physics lecture
-        │
-        ├── # --- Decorator Pattern ---
-        ├── OnlineLectureDecorator.java    # Abstract decorator
-        ├── OnlineMathLecture.java         # Online math decorator
-        ├── OnlineEnglishLecture.java      # Online English decorator
-        ├── OnlinePhysicsLecture.java      # Online physics decorator
-        │
-        ├── # --- Student Classes ---
-        ├── MathStudent.java               # Math student
-        ├── EnglishStudent.java            # English student
-        ├── PhysicsStudent.java            # Physics student
-        │
-        └── # --- Publisher Classes ---
-            ├── EducationalPublisherA.java # Publisher A
-            └── EducationalPublisherB.java # Publisher B
-```
 ## Installation and Running
 
 ### Requirements
