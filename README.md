@@ -5,9 +5,9 @@ A console-based Java application developed using **4 different Design Patterns**
 ## Table of Contents
 
 - [Design Patterns Used](#-design-patterns-used)
-  - [Strategy Pattern](#1--strategy-pattern)
+  - [Factory Pattern](#1--factory-pattern)
   - [Observer Pattern](#2--observer-pattern)
-  - [Factory Pattern](#3--factory-pattern)
+  - [Strategy Pattern](#3--strategy-pattern)
   - [Decorator Pattern](#4--decorator-pattern)
 - [Project Structure](#-project-structure)
 - [Installation and Running](#-installation-and-running)
@@ -18,26 +18,24 @@ A console-based Java application developed using **4 different Design Patterns**
 
 ## Design Patterns Used
 
-### 1. Strategy Pattern
+### 1. Factory Pattern
 
-Enables **dynamically changing the evaluation system** of lectures at runtime. Each lecture type starts with a different default evaluation strategy, which can be switched during execution.
+Since lecture prices vary from city to city, a student could accidentally select a lecture from the wrong city's course center, leading to incorrect information and wrong pricing. To solve this, separate `LectureCenter` subclasses are created for each city, where the `createLecture()` method returns only the lectures available in that specific city. This restricts the selectable lectures for each student and eliminates cross-city selection errors.
 
 **Related Classes:**
 
 | Class | Role |
 |---|---|
-| `EvaluationStrategy` | Strategy interface |
-| `ExamBasedEvaluation` | Exam-only based evaluation |
-| `ProjectBasedEvaluation` | Project-only based evaluation |
-| `ExamAndProjectEvaluation` | Exam + project based evaluation |
+| `LectureCenter` | Abstract factory class |
+| `IstanbulLectureCenter` | Concrete factory for Istanbul |
+| `AnkaraLectureCenter` | Concrete factory for Ankara |
+
+**Produced Lecture Types:** `MathLecture`, `EnglishLecture`, `PhysicsLecture` (separate implementations for each city)
 
 **Usage Example:**
 ```java
 LectureCenter cent = new IstanbulLectureCenter();
-Lecture lesson2 = cent.selectLecture("math");
-lesson2.showEvaluationSystem();                        // Default: Exam-based
-lesson2.setEvaluationStrategy(new ExamAndProjectEvaluation());
-lesson2.showEvaluationSystem();                        // Changed: Exam + Project based
+Lecture lesson2 = cent.selectLecture("math");           // Creates IstanbulMathLecture
 ```
 
 ---
@@ -73,24 +71,26 @@ lesson.setWeeklyClassTopic("Türev");                                           
 
 ---
 
-### 3. Factory Pattern
+### 3. Strategy Pattern
 
-Lecture centers in different cities (Istanbul, Ankara) **create the appropriate Lecture object based on the lecture type**. The object creation process is delegated to subclasses (Factory Method).
+Enables **dynamically changing the evaluation system** of lectures at runtime. Each lecture type starts with a different default evaluation strategy, which can be switched during execution.
 
 **Related Classes:**
 
 | Class | Role |
 |---|---|
-| `LectureCenter` | Abstract factory class |
-| `IstanbulLectureCenter` | Concrete factory for Istanbul |
-| `AnkaraLectureCenter` | Concrete factory for Ankara |
-
-**Produced Lecture Types:** `MathLecture`, `EnglishLecture`, `PhysicsLecture` (separate implementations for each city)
+| `EvaluationStrategy` | Strategy interface |
+| `ExamBasedEvaluation` | Exam-only based evaluation |
+| `ProjectBasedEvaluation` | Project-only based evaluation |
+| `ExamAndProjectEvaluation` | Exam + project based evaluation |
 
 **Usage Example:**
 ```java
 LectureCenter cent = new IstanbulLectureCenter();
-Lecture lesson2 = cent.selectLecture("math");           // Creates IstanbulMathLecture
+Lecture lesson2 = cent.selectLecture("math");
+lesson2.showEvaluationSystem();                        // Default: Exam-based
+lesson2.setEvaluationStrategy(new ExamAndProjectEvaluation());
+lesson2.showEvaluationSystem();                        // Changed: Exam + Project based
 ```
 
 ---
