@@ -134,8 +134,8 @@ System.out.println(lesson5.cost());                                // Total: 400
 
 ```bash
 # Clone the project
-git clone https://github.com/<username>/Education_Management_System.git
-cd Education_Management_System
+git clone https://github.com/MuhammetFurkanKayan/education-management-system.git
+cd education-management-system
 
 # Compile
 javac -d out src/source/*.java
